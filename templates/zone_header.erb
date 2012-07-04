@@ -1,0 +1,10 @@
+$ORIGIN <%= name %>.
+$TTL    <%= zone_ttl %>
+@	IN	SOA	<%= zone_ns %>. <%= zone_contact %>. (
+			<%= zone_serial %>   ; serial
+			<%= zone_refresh %>  ; refresh
+			<%= zone_retry %>    ; retry
+			<%= zone_expiracy %> ; expiracy
+			<%= zone_ttl %>    ) ; TTL
+	IN	NS	<%= zone_ns %>.
+

@@ -1,0 +1,9 @@
+zone "<%= name %>" {
+        type master;
+<% if ! filename.to_s.empty? -%>
+        file "/var/named/<%= filename %>";
+<% else -%>
+        file "/var/named/zone.<%= name %>";
+<% end -%>
+};
+
