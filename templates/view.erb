@@ -1,11 +1,13 @@
+view "<%= name %>" {
+<% if ! match_destinations.to_s.empty? -%>
+        match-destinations { <%= match_destinations.join('; ') %>; };
+<% end -%>
+<% if ! match_clients.to_s.empty? -%>
+        match-clients { <%= match_clients.join('; ') %>; };
+<% end -%>
 
-options {
-        directory "/var/named";
-        dump-file "/var/named/data/cache_dump.db";
-        statistics-file "/var/named/data/named_stats.txt";
-        listen-on-v6 { any; };
 <% if ! forwarders.to_s.empty? -%>
-        forwarders { <%= forwarders.join('; ') %>; };
+        forwarders { <%= forwarders %>; };
 <% end -%>
 <% if ! querysource_address.to_s.empty? -%>
 <% if ! querysource_port.to_s.empty? -%>
@@ -21,14 +23,9 @@ options {
         query-source-v6 address <%= querysourcev6_address %>;
 <% end -%>
 <% end -%>
-};
-
-include "/etc/rndc.key";
-
-logging {
-        category lame-servers { null; };
-};
 
 <% zones.each do |zone| -%>
-include "/etc/named.d/zones/<%= zone %>.conf";
+        include "/etc/named.d/zones/<%= zone %>.conf";
 <% end -%>
+
+};
